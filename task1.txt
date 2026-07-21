@@ -1,0 +1,38 @@
+
+Introduction:
+
+Wishlink is a creator-commerce platform that connects content creators, brands, and consumers. It enables creators to share product recommendations through personalized links and storefronts, helping them earn commissions when their audience makes purchases. The platform also allows brands to collaborate with creators and track campaign performance, making online shopping and affiliate marketing more efficient.
+
+Functional Requirements:
+
+Functional requirements describe the features that the Wishlink application must provide.
+
+User registration and login.
+Connect social media accounts (Instagram, YouTube, etc.).
+Create and manage a personalized storefront.
+Generate and share affiliate product links.
+Browse and search products from partner brands.
+Track clicks, sales, and commissions.
+View earnings and payout details.
+Apply for brand collaborations.
+Receive notifications about campaigns, rewards, and payments.
+Admin can manage users, creators, brands, products, and reports.
+
+Non-Functional Requirements:
+
+Non-functional requirements describe how the Wishlink application should perform.
+
+Performance: Pages and dashboards should load quickly.
+Security: User accounts, payment details, and personal information must be securely protected.
+Availability: The application should be accessible 24/7 with minimal downtime.
+Scalability: The system should support a large number of creators, brands, and users simultaneously.
+Reliability: Earnings, commissions, and analytics should be accurate and consistent.
+Usability: The interface should be simple, responsive, and easy to navigate.
+Compatibility: The application should work across Android, iOS, and modern web browsers.
+Maintainability: The system should be easy to update and maintain.
+Data Backup and Recovery: User and transaction data should be backed up regularly.
+Response Time: Search results, analytics, and reports should be displayed within a few seconds.
+
+Conclusion:
+
+Functional and non-functional requirements are essential for the successful development of the Wishlink application. Functional requirements ensure that creators, brands, and users can access all the necessary features, such as link sharing, product recommendations, and earnings tracking. Non-functional requirements ensure that the platform remains secure, reliable, fast, and user-friendly. Together, these requirements help Wishlink provide an efficient and scalable creator-commerce platform.
