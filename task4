@@ -1,0 +1,160 @@
+DROP DATABASE IF EXISTS ECommerceDB;
+
+CREATE DATABASE ECommerceDB;
+
+USE ECommerceDB;
+
+CREATE TABLE Customers (
+    Customer_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Customer_Name VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Phone VARCHAR(15),
+    Address VARCHAR(255)
+);
+
+CREATE TABLE Products (
+    Product_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Product_Name VARCHAR(100) NOT NULL,
+    Price DECIMAL(10,2) NOT NULL,
+    Stock INT NOT NULL
+);
+
+CREATE TABLE Orders (
+    Order_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Customer_ID INT NOT NULL,
+    Order_Date DATE NOT NULL,
+    Total_Amount DECIMAL(10,2) NOT NULL,
+    Order_Status VARCHAR(20) DEFAULT 'Placed',
+    FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID)
+);
+
+CREATE TABLE Order_Details (
+    Order_Detail_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Order_ID INT NOT NULL,
+    Product_ID INT NOT NULL,
+    Quantity INT NOT NULL,
+    Unit_Price DECIMAL(10,2) NOT NULL,
+    Subtotal DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID),
+    FOREIGN KEY (Product_ID) REFERENCES Products(Product_ID)
+);
+
+INSERT INTO Customers
+(Customer_Name, Email, Phone, Address)
+VALUES
+('Sangavi', 'sangavi@gmail.com', '9876543210', 'Chennai'),
+('Rahul', 'rahul@gmail.com', '9876543211', 'Bangalore'),
+('Priya', 'priya@gmail.com', '9876543212', 'Coimbatore');
+
+INSERT INTO Products
+(Product_Name, Price, Stock)
+VALUES
+('Laptop', 50000.00, 10),
+('Headphones', 2000.00, 25),
+('Keyboard', 1500.00, 20),
+('Mouse', 800.00, 30),
+('Mobile Phone', 25000.00, 15);
+
+INSERT INTO Orders
+(Customer_ID, Order_Date, Total_Amount, Order_Status)
+VALUES
+(1, '2026-09-01', 52000.00, 'Placed'),
+(2, '2026-09-01', 3500.00, 'Shipped'),
+(1, '2026-09-02', 25800.00, 'Placed');
+
+INSERT INTO Order_Details
+(Order_ID, Product_ID, Quantity, Unit_Price, Subtotal)
+VALUES
+(1, 1, 1, 50000.00, 50000.00),
+(1, 2, 1, 2000.00, 2000.00),
+(2, 3, 1, 1500.00, 1500.00),
+(2, 4, 2, 800.00, 1600.00),
+(2, 2, 1, 400.00, 400.00),
+(3, 5, 1, 25000.00, 25000.00),
+(3, 4, 1, 800.00, 800.00);
+
+SELECT * FROM Customers;
+
+SELECT * FROM Products;
+
+SELECT * FROM Orders;
+
+SELECT * FROM Order_Details;
+
+UPDATE Orders
+SET Order_Status = 'Delivered'
+WHERE Order_ID = 1;
+
+UPDATE Order_Details
+SET Quantity = 2,
+    Subtotal = 2 * Unit_Price
+WHERE Order_Detail_ID = 1;
+
+UPDATE Orders
+SET Total_Amount = 52000.00
+WHERE Order_ID = 1;
+
+SELECT
+    c.Customer_ID,
+    c.Customer_Name,
+    o.Order_ID,
+    o.Order_Date,
+    p.Product_Name,
+    od.Quantity,
+    od.Unit_Price,
+    od.Subtotal,
+    o.Total_Amount,
+    o.Order_Status
+FROM Customers c
+JOIN Orders o
+ON c.Customer_ID = o.Customer_ID
+JOIN Order_Details od
+ON o.Order_ID = od.Order_ID
+JOIN Products p
+ON od.Product_ID = p.Product_ID
+WHERE c.Customer_ID = 1
+ORDER BY o.Order_Date DESC;
+
+SELECT
+    c.Customer_Name,
+    o.Order_ID,
+    o.Order_Date,
+    p.Product_Name,
+    od.Quantity,
+    od.Unit_Price,
+    od.Subtotal,
+    o.Total_Amount,
+    o.Order_Status
+FROM Customers c
+JOIN Orders o
+ON c.Customer_ID = o.Customer_ID
+JOIN Order_Details od
+ON o.Order_ID = od.Order_ID
+JOIN Products p
+ON od.Product_ID = p.Product_ID
+ORDER BY o.Order_Date DESC;
+
+SELECT COUNT(*) AS Total_Orders
+FROM Orders;
+
+SELECT SUM(Total_Amount) AS Total_Sales
+FROM Orders;
+
+SELECT
+    Order_ID,
+    Order_Date,
+    Total_Amount,
+    Order_Status
+FROM Orders
+WHERE Customer_ID = 1;
+
+SELECT
+    od.Order_ID,
+    p.Product_Name,
+    od.Quantity,
+    od.Unit_Price,
+    od.Subtotal
+FROM Order_Details od
+JOIN Products p
+ON od.Product_ID = p.Product_ID
+WHERE od.Order_ID = 1;
