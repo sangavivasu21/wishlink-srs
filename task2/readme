@@ -1,13 +1,11 @@
 CREATE DATABASE ProductCategoryDB;
 USE ProductCategoryDB;
 
--- 1. Create Category table
 CREATE TABLE Category (
     Category_ID INT PRIMARY KEY AUTO_INCREMENT,
     Category_Name VARCHAR(100) NOT NULL
 );
 
--- 2. Create Product table with Primary Key and Foreign Key
 CREATE TABLE Product (
     Product_ID INT PRIMARY KEY AUTO_INCREMENT,
     Product_Name VARCHAR(100) NOT NULL,
@@ -17,7 +15,6 @@ CREATE TABLE Product (
     FOREIGN KEY (Category_ID) REFERENCES Category(Category_ID)
 );
 
--- 3. Insert categories
 INSERT INTO Category (Category_Name)
 VALUES
 ('Electronics'),
@@ -25,7 +22,6 @@ VALUES
 ('Books'),
 ('Home Appliances');
 
--- 4. Insert products
 INSERT INTO Product (Product_Name, Category_ID, Price, Stock)
 VALUES
 ('Laptop', 1, 55000.00, 10),
@@ -35,20 +31,16 @@ VALUES
 ('Java Programming Book', 3, 599.00, 15),
 ('Mixer Grinder', 4, 3500.00, 8);
 
--- 5. Display all products
 SELECT * FROM Product;
 
--- 6. Update product details
 UPDATE Product
 SET Price = 57000.00,
     Stock = 12
 WHERE Product_ID = 1;
 
--- 7. Delete a product
 DELETE FROM Product
 WHERE Product_ID = 6;
 
--- 8. Display products with category names
 SELECT 
     p.Product_ID,
     p.Product_Name,
@@ -59,7 +51,6 @@ FROM Product p
 JOIN Category c
 ON p.Category_ID = c.Category_ID;
 
--- 9. Category-wise product report
 SELECT 
     c.Category_Name,
     COUNT(p.Product_ID) AS Total_Products,
